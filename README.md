@@ -1,4 +1,4 @@
-RAP - MAF - Front End
+# RAP - MAF - Front End
 
 MAF is a fully functional ABAP RAP application demo. This repository represents the front end, and demonstrates various floor plans of Fiori Elements / FreeStyle. All development was made in VS Code.
 
