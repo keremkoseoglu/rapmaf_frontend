@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="cds_zapi_maf_doc" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="I_CurrencyType" sap:label="Currency" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Currency"/>
+                </Key>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:text="Currency_Text" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="Currency_Text" Type="Edm.String" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Decimals" Type="Edm.Byte" sap:label="Decimal Places" sap:quickinfo="Number of decimal places"/>
+                <Property Name="CurrencyISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO Code" sap:quickinfo="ISO Currency Code"/>
+                <Property Name="AlternativeCurrencyKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Alternative Key"/>
+                <Property Name="IsPrimaryCurrencyForISOCrcy" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Primary" sap:quickinfo="Primary SAP Currency Code for ISO Code"/>
+            </EntityType>
+            <EntityType Name="I_UnitOfMeasureType" sap:label="Unit of Measure" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UnitOfMeasure"/>
+                </Key>
+                <Property Name="UnitOfMeasure" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="UnitOfMeasure_Text" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitOfMeasure_Text" Type="Edm.String" MaxLength="30" sap:label="UoM Text" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="UnitOfMeasureSAPCode" Type="Edm.String" MaxLength="3" sap:label="Internal SAP Code" sap:quickinfo="Unit of Measurement, Internal SAP Code (No Conversion)"/>
+                <Property Name="UnitOfMeasureISOCode" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="ISO code" sap:quickinfo="ISO code for unit of measurement"/>
+                <Property Name="IsPrimaryUnitForISOCode" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Primary code" sap:quickinfo="Selection field for conversion from ISO code to int. code"/>
+                <Property Name="UnitOfMeasureNumberOfDecimals" Type="Edm.Int16" sap:label="Decimal Rounding" sap:quickinfo="No. of decimal places for rounding"/>
+                <Property Name="UnitOfMeasureIsCommercial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Commercial meas.unit" sap:quickinfo="Commercial measurement unit ID"/>
+                <Property Name="UnitOfMeasureDimension" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Dimension" sap:quickinfo="Dimension key"/>
+                <Property Name="SIUnitCnvrsnRateNumerator" Type="Edm.Int32" sap:label="Numerator" sap:quickinfo="Numerator for conversion to SI unit"/>
+                <Property Name="SIUnitCnvrsnRateDenominator" Type="Edm.Int32" sap:label="Denominator" sap:quickinfo="Denominator for conversion into SI unit"/>
+                <Property Name="SIUnitCnvrsnRateExponent" Type="Edm.Int16" sap:label="Exponent" sap:quickinfo="base ten exponent for conversion to SI unit"/>
+                <Property Name="SIUnitCnvrsnAdditiveValue" Type="Edm.Decimal" Precision="9" Scale="6" sap:label="Additive constant" sap:quickinfo="Additive constant for conversion to SI unit"/>
+                <Property Name="UnitOfMeasureDspExponent" Type="Edm.Int16" sap:label="float. point exp." sap:quickinfo="Base ten exponent for floating-point display"/>
+                <Property Name="UnitOfMeasureDspNmbrOfDcmls" Type="Edm.Int16" sap:label="Decimal Places" sap:quickinfo="Number of decimal places for number display"/>
+                <Property Name="UnitOfMeasureTemperature" Type="Edm.Double" sap:unit="UnitOfMeasureTemperatureUnit" sap:label="Temperature"/>
+                <Property Name="UnitOfMeasureTemperatureUnit" Type="Edm.String" MaxLength="3" sap:label="Temperature unit" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitOfMeasurePressure" Type="Edm.Double" sap:unit="UnitOfMeasurePressureUnit" sap:label="Pressure Value"/>
+                <Property Name="UnitOfMeasurePressureUnit" Type="Edm.String" MaxLength="3" sap:label="Unit of Pressure" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="CostCalculationType" sap:label="MAF cost calculation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MafId"/>
+                    <PropertyRef Name="ComponentId"/>
+                </Key>
+                <Property Name="MafId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="MAF ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ComponentId" Type="Edm.Guid" Nullable="false" sap:label="Component UUID" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="MaterialDescription" sap:label="MAF material" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="MaterialDescription" Type="Edm.String" MaxLength="40" sap:label="Material description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Cost" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="CurrencyCode" sap:label="Amount" sap:quickinfo="Amount in document currency" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <NavigationProperty Name="to_doc" Relationship="cds_zapi_maf_doc.assoc_8392F5F242B73352D5607FE0C951968C" FromRole="FromRole_assoc_8392F5F242B73352D5607FE0C951968C" ToRole="ToRole_assoc_8392F5F242B73352D5607FE0C951968C"/>
+                <NavigationProperty Name="to_production" Relationship="cds_zapi_maf_doc.assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC" FromRole="FromRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC" ToRole="ToRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC"/>
+            </EntityType>
+            <EntityType Name="ZC_MAF_DOCType" sap:label="MAF document" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MafId"/>
+                </Key>
+                <Property Name="MafId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:text="Description" sap:label="MAF ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="40" sap:label="Object name" sap:quickinfo="Object Name"/>
+                <Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created by" sap:quickinfo="Name of Person who Created the Object" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Changed by" sap:quickinfo="Name of person who changed object" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LocalLastChangedAt" Type="Edm.DateTimeOffset" Precision="7" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Long Form (YYYYMMDDhhmmssmmmuuun)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Approved" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Approved"/>
+                <Property Name="MaterialDescription" Type="Edm.String" MaxLength="40" sap:label="Material description"/>
+                <Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="SizeUom" sap:label="Width"/>
+                <Property Name="Height" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="SizeUom" sap:label="Height"/>
+                <Property Name="Length" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="SizeUom" sap:label="Length"/>
+                <Property Name="SizeUom" Type="Edm.String" MaxLength="3" sap:label="Unit of Dimension" sap:quickinfo="Unit of Dimension for Length/Width/Height" sap:semantics="unit-of-measure"/>
+                <Property Name="Volume" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="VolumeUom" sap:label="Volume"/>
+                <Property Name="VolumeUom" Type="Edm.String" MaxLength="3" sap:label="Volume unit" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="to_cost" Relationship="cds_zapi_maf_doc.assoc_0F63F4AAB83733F788301B78BA345D91" FromRole="FromRole_assoc_0F63F4AAB83733F788301B78BA345D91" ToRole="ToRole_assoc_0F63F4AAB83733F788301B78BA345D91"/>
+                <NavigationProperty Name="to_finance" Relationship="cds_zapi_maf_doc.assoc_611FA7AA530BD9F8B425C00C7F12EA46" FromRole="FromRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46" ToRole="ToRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46"/>
+                <NavigationProperty Name="to_production" Relationship="cds_zapi_maf_doc.assoc_4F1C52182F9C9A1A89B7D87574B8CB02" FromRole="FromRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02" ToRole="ToRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02"/>
+            </EntityType>
+            <EntityType Name="FinanceType" sap:label="MAF finance evaluation" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MafId"/>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="MafId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="MAF ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="MaterialDescription" sap:label="MAF material"/>
+                <Property Name="MaterialDescription" Type="Edm.String" MaxLength="40" sap:label="Material description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Price" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="CurrencyCode" sap:label="Amount" sap:quickinfo="Amount in document currency"/>
+                <Property Name="CurrencyCode" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:value-list="standard" sap:semantics="currency-code"/>
+                <Property Name="PriceUnit" Type="Edm.Decimal" Precision="5" Scale="0" sap:label="Price unit"/>
+                <NavigationProperty Name="to_doc" Relationship="cds_zapi_maf_doc.assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8" FromRole="FromRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8" ToRole="ToRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8"/>
+                <NavigationProperty Name="to_production" Relationship="cds_zapi_maf_doc.assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7" FromRole="FromRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7" ToRole="ToRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7"/>
+            </EntityType>
+            <EntityType Name="ProductionType" sap:label="MAF production" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MafId"/>
+                    <PropertyRef Name="ComponentId"/>
+                </Key>
+                <Property Name="MafId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="MAF ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ComponentId" Type="Edm.Guid" Nullable="false" sap:label="Component UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ParentId" Type="Edm.Guid" sap:label="Parent UUID"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="MaterialDescription" sap:label="MAF material" sap:value-list="standard"/>
+                <Property Name="MaterialDescription" Type="Edm.String" MaxLength="40" sap:label="Material description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="Uom" sap:label="Quantity"/>
+                <Property Name="Uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="to_cost" Relationship="cds_zapi_maf_doc.assoc_AFB9AFFF4D19F30921AF921CB03EE9E4" FromRole="FromRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4" ToRole="ToRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4"/>
+                <NavigationProperty Name="to_doc" Relationship="cds_zapi_maf_doc.assoc_CD8BB135DD5E16548FA5E2C951D17973" FromRole="FromRole_assoc_CD8BB135DD5E16548FA5E2C951D17973" ToRole="ToRole_assoc_CD8BB135DD5E16548FA5E2C951D17973"/>
+                <NavigationProperty Name="to_finance" Relationship="cds_zapi_maf_doc.assoc_3E68CF1CE1BFFBA866D180225FF48721" FromRole="FromRole_assoc_3E68CF1CE1BFFBA866D180225FF48721" ToRole="ToRole_assoc_3E68CF1CE1BFFBA866D180225FF48721"/>
+                <NavigationProperty Name="to_parent" Relationship="cds_zapi_maf_doc.assoc_169822042BEC03DF55093724095DF28D" FromRole="FromRole_assoc_169822042BEC03DF55093724095DF28D" ToRole="ToRole_assoc_169822042BEC03DF55093724095DF28D"/>
+            </EntityType>
+            <EntityType Name="ZI_MAF_MATERIALType" sap:label="MAF material" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="Description" sap:label="MAF material"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="40" sap:label="Material description"/>
+                <Property Name="Uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="ZI_MAT_PRODType" sap:label="MAF production data" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MafId"/>
+                    <PropertyRef Name="ComponentId"/>
+                </Key>
+                <Property Name="MafId" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="MAF ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ComponentId" Type="Edm.Guid" Nullable="false" sap:label="Component UUID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ParentId" Type="Edm.Guid" sap:label="Parent UUID"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="MAF material" sap:value-list="standard"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="Uom" sap:label="Quantity"/>
+                <Property Name="Uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:value-list="standard" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <Association Name="assoc_AFB9AFFF4D19F30921AF921CB03EE9E4" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="1" Role="FromRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4"/>
+                <End Type="cds_zapi_maf_doc.CostCalculationType" Multiplicity="0..1" Role="ToRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4"/>
+            </Association>
+            <Association Name="assoc_CD8BB135DD5E16548FA5E2C951D17973" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="1" Role="FromRole_assoc_CD8BB135DD5E16548FA5E2C951D17973"/>
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="ToRole_assoc_CD8BB135DD5E16548FA5E2C951D17973"/>
+            </Association>
+            <Association Name="assoc_3E68CF1CE1BFFBA866D180225FF48721" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="1" Role="FromRole_assoc_3E68CF1CE1BFFBA866D180225FF48721"/>
+                <End Type="cds_zapi_maf_doc.FinanceType" Multiplicity="0..1" Role="ToRole_assoc_3E68CF1CE1BFFBA866D180225FF48721"/>
+            </Association>
+            <Association Name="assoc_169822042BEC03DF55093724095DF28D" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="1" Role="FromRole_assoc_169822042BEC03DF55093724095DF28D"/>
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="0..1" Role="ToRole_assoc_169822042BEC03DF55093724095DF28D"/>
+            </Association>
+            <Association Name="assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.FinanceType" Multiplicity="1" Role="FromRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8"/>
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="ToRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8"/>
+            </Association>
+            <Association Name="assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.FinanceType" Multiplicity="1" Role="FromRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7"/>
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="*" Role="ToRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7"/>
+            </Association>
+            <Association Name="assoc_0F63F4AAB83733F788301B78BA345D91" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="FromRole_assoc_0F63F4AAB83733F788301B78BA345D91">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="cds_zapi_maf_doc.CostCalculationType" Multiplicity="*" Role="ToRole_assoc_0F63F4AAB83733F788301B78BA345D91"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_0F63F4AAB83733F788301B78BA345D91">
+                        <PropertyRef Name="MafId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_0F63F4AAB83733F788301B78BA345D91">
+                        <PropertyRef Name="MafId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_611FA7AA530BD9F8B425C00C7F12EA46" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="FromRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="cds_zapi_maf_doc.FinanceType" Multiplicity="*" Role="ToRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46">
+                        <PropertyRef Name="MafId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46">
+                        <PropertyRef Name="MafId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_4F1C52182F9C9A1A89B7D87574B8CB02" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="FromRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02">
+                    <OnDelete Action="Cascade"/>
+                </End>
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="*" Role="ToRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02">
+                        <PropertyRef Name="MafId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02">
+                        <PropertyRef Name="MafId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.CostCalculationType" Multiplicity="1" Role="FromRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC"/>
+                <End Type="cds_zapi_maf_doc.ProductionType" Multiplicity="1" Role="ToRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC"/>
+            </Association>
+            <Association Name="assoc_8392F5F242B73352D5607FE0C951968C" sap:content-version="1">
+                <End Type="cds_zapi_maf_doc.CostCalculationType" Multiplicity="1" Role="FromRole_assoc_8392F5F242B73352D5607FE0C951968C"/>
+                <End Type="cds_zapi_maf_doc.ZC_MAF_DOCType" Multiplicity="1" Role="ToRole_assoc_8392F5F242B73352D5607FE0C951968C"/>
+            </Association>
+            <EntityContainer Name="cds_zapi_maf_doc_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="I_Currency" EntityType="cds_zapi_maf_doc.I_CurrencyType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="I_UnitOfMeasure" EntityType="cds_zapi_maf_doc.I_UnitOfMeasureType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="CostCalculation" EntityType="cds_zapi_maf_doc.CostCalculationType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZC_MAF_DOC" EntityType="cds_zapi_maf_doc.ZC_MAF_DOCType" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="Finance" EntityType="cds_zapi_maf_doc.FinanceType" sap:creatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="Production" EntityType="cds_zapi_maf_doc.ProductionType" sap:content-version="1"/>
+                <EntitySet Name="ZI_MAF_MATERIAL" EntityType="cds_zapi_maf_doc.ZI_MAF_MATERIALType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_MAT_PROD" EntityType="cds_zapi_maf_doc.ZI_MAT_PRODType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_8392F5F242B73352D5607FE0C951968C" Association="cds_zapi_maf_doc.assoc_8392F5F242B73352D5607FE0C951968C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CostCalculation" Role="FromRole_assoc_8392F5F242B73352D5607FE0C951968C"/>
+                    <End EntitySet="ZC_MAF_DOC" Role="ToRole_assoc_8392F5F242B73352D5607FE0C951968C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7" Association="cds_zapi_maf_doc.assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Finance" Role="FromRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7"/>
+                    <End EntitySet="Production" Role="ToRole_assoc_8826ABA72BCC9D9D0E36A08B5D08B7C7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_0F63F4AAB83733F788301B78BA345D91" Association="cds_zapi_maf_doc.assoc_0F63F4AAB83733F788301B78BA345D91" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MAF_DOC" Role="FromRole_assoc_0F63F4AAB83733F788301B78BA345D91"/>
+                    <End EntitySet="CostCalculation" Role="ToRole_assoc_0F63F4AAB83733F788301B78BA345D91"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC" Association="cds_zapi_maf_doc.assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="CostCalculation" Role="FromRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC"/>
+                    <End EntitySet="Production" Role="ToRole_assoc_5EF775C1D4AB0B7F6D8770098ED0E9BC"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_611FA7AA530BD9F8B425C00C7F12EA46" Association="cds_zapi_maf_doc.assoc_611FA7AA530BD9F8B425C00C7F12EA46" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MAF_DOC" Role="FromRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46"/>
+                    <End EntitySet="Finance" Role="ToRole_assoc_611FA7AA530BD9F8B425C00C7F12EA46"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_169822042BEC03DF55093724095DF28D" Association="cds_zapi_maf_doc.assoc_169822042BEC03DF55093724095DF28D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Production" Role="FromRole_assoc_169822042BEC03DF55093724095DF28D"/>
+                    <End EntitySet="Production" Role="ToRole_assoc_169822042BEC03DF55093724095DF28D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_AFB9AFFF4D19F30921AF921CB03EE9E4" Association="cds_zapi_maf_doc.assoc_AFB9AFFF4D19F30921AF921CB03EE9E4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Production" Role="FromRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4"/>
+                    <End EntitySet="CostCalculation" Role="ToRole_assoc_AFB9AFFF4D19F30921AF921CB03EE9E4"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_4F1C52182F9C9A1A89B7D87574B8CB02" Association="cds_zapi_maf_doc.assoc_4F1C52182F9C9A1A89B7D87574B8CB02" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZC_MAF_DOC" Role="FromRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02"/>
+                    <End EntitySet="Production" Role="ToRole_assoc_4F1C52182F9C9A1A89B7D87574B8CB02"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_CD8BB135DD5E16548FA5E2C951D17973" Association="cds_zapi_maf_doc.assoc_CD8BB135DD5E16548FA5E2C951D17973" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Production" Role="FromRole_assoc_CD8BB135DD5E16548FA5E2C951D17973"/>
+                    <End EntitySet="ZC_MAF_DOC" Role="ToRole_assoc_CD8BB135DD5E16548FA5E2C951D17973"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3E68CF1CE1BFFBA866D180225FF48721" Association="cds_zapi_maf_doc.assoc_3E68CF1CE1BFFBA866D180225FF48721" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Production" Role="FromRole_assoc_3E68CF1CE1BFFBA866D180225FF48721"/>
+                    <End EntitySet="Finance" Role="ToRole_assoc_3E68CF1CE1BFFBA866D180225FF48721"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8" Association="cds_zapi_maf_doc.assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Finance" Role="FromRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8"/>
+                    <End EntitySet="ZC_MAF_DOC" Role="ToRole_assoc_F1F7FBC7C3B83C5DCCB206B95957BEB8"/>
+                </AssociationSet>
+                <FunctionImport Name="approveDoc" ReturnType="cds_zapi_maf_doc.ZC_MAF_DOCType" EntitySet="ZC_MAF_DOC" m:HttpMethod="POST" sap:action-for="cds_zapi_maf_doc.ZC_MAF_DOCType">
+                    <Parameter Name="MafId" Type="Edm.String" Mode="In" MaxLength="10"/>
+                </FunctionImport>
+                <FunctionImport Name="rejectDoc" ReturnType="cds_zapi_maf_doc.ZC_MAF_DOCType" EntitySet="ZC_MAF_DOC" m:HttpMethod="POST" sap:action-for="cds_zapi_maf_doc.ZC_MAF_DOCType">
+                    <Parameter Name="MafId" Type="Edm.String" Mode="In" MaxLength="10"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="cds_zapi_maf_doc.cds_zapi_maf_doc_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.FinanceType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.FinanceType/PriceUnit" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ProductionType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ProductionType/Quantity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ProductionType/Uom" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ZC_MAF_DOCType/CurrencyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ZC_MAF_DOCType/Description" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ZI_MAT_PRODType/Material" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ZI_MAT_PRODType/Quantity" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.ZI_MAT_PRODType/Uom" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.cds_zapi_maf_doc_Entities/ZC_MAF_DOC" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_production"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="true"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.I_CurrencyType/Currency" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.UnitSpecificScale" Path="Decimals"/>
+            </Annotations>
+            <Annotations Target="cds_zapi_maf_doc.I_UnitOfMeasureType/UnitOfMeasure" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.UnitSpecificScale" Path="UnitOfMeasureDspNmbrOfDcmls"/>
+            </Annotations>
+            <atom:link rel="self" href="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/sap/ZAPI_MAF_DOC/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://vhcala4hci.dummy.nodomain:50000/sap/opu/odata/sap/ZAPI_MAF_DOC/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

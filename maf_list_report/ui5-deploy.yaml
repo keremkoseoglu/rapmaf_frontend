@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: '1.0'
+metadata:
+  name: 'maf_list_report'
+type: application
+ui5Theme: sap_fiori_3_dark
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://vhcala4hci.dummy.nodomain:50000
+          client: "001"
+        app:
+          name: ZMAF_LIST_REP
+          description: MAF list report
+          package: ZMAF
+          transport: A4HK900058
